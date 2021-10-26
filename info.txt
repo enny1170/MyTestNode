@@ -1,0 +1,5 @@
+NrfDuino benötigt im Sleep Mode 7,34 ma mach bei 2600 mah (2xAA) ca. 345h max Haltezeit
+wären theoretisch 14 Tage. Wenn wir davon ausgehen, das bei 1,8 V Schluss ist und alle 10 minuten mit 24ma gemessen wird
+wären das 6x 3s mit 24ma macht pro stunde 0,12 mah 
+der rest wäre 60 - 15 s mit 7,3 ma macht pro stunde 0,091 mah 
+Bedarf pto Stunde also 0,21 ma ca 500 Tage ?
