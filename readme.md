@@ -7,12 +7,14 @@ see https://www.electrodragon.com/w/NRF24L01
 
 buy at https://www.electrodragon.com/product/nrf24duino-arduino-mini-plus-nrf24l01-board/
 
-This is a Battery driven Project. 
+This is a Battery driven Project.
+ 
 To Minimize the Power consumption fallowing changes on the module is done
 - remove the external Flash chip (small 8 pin)
 - open the Solderbridge near of Vin (also remove the power Regulator small 3 pin chip)
 
-From Software site we have created a environment 'nrfduino1Mhz'. This is allready setup to build the Software for 1MHz and ready to set the fuses for the AVR. 
+From Software site we have created a environment 'nrfduino1Mhz'. 
+This is allready setup to build the Software for 1MHz and ready to set the fuses for the AVR. 
 For Fuses we need to use a Programmer. So this setup is prepared for a AVRisp MKII on USB.
 Burning the software to the Controller can also be done with this setup. 
 For the fuses use:  pio run --target fuses
