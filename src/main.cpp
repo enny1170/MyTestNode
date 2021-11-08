@@ -35,7 +35,7 @@ NodeManager. Just uncomment the settings you need and the sensors you want to ad
 #define MY_DEBUG
 // Enable OTA log display
 // #define MY_OTA_LOG_RECEIVER_FEATURE
-#define MY_NODE_ID 201
+#define MY_NODE_ID NODEID
 
 // for NRF24DUINO you have to specify a different CE-Pin for NRF24L01+
 #define MY_RF24_CE_PIN 7
@@ -100,7 +100,7 @@ NodeManager. Just uncomment the settings you need and the sensors you want to ad
 //#define MY_DEBUG_OTA_DISABLE_ACK
 
 // Advanced settings
-#define MY_BAUD_RATE 115200
+#define MY_BAUD_RATE SERIALSPEED
 //#define MY_SMART_SLEEP_WAIT_DURATION_MS 500
 //#define MY_SPLASH_SCREEN_DISABLED
 //#define MY_DISABLE_RAM_ROUTING_TABLE_FEATURE
@@ -384,7 +384,8 @@ void before() {
   /***********************************
    * Configure your sensors
    */
-   
+
+  battery.setMinVoltage(MINVOLTAGE); 
   battery.setSendBatteryLevel(true); 
   // EXAMPLES:
   // report measures of every attached sensors every 10 seconds
