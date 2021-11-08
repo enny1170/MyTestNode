@@ -8,7 +8,7 @@ see https://www.electrodragon.com/w/NRF24L01
 buy at https://www.electrodragon.com/product/nrf24duino-arduino-mini-plus-nrf24l01-board/
 
 This is a Battery driven Project.
- 
+
 To Minimize the Power consumption fallowing changes on the module is done
 - remove the external Flash chip (small 8 pin)
 - open the Solderbridge near of Vin (also remove the power Regulator small 3 pin chip)
@@ -20,9 +20,12 @@ Burning the software to the Controller can also be done with this setup.
 For the fuses use:  pio run --target fuses
 It is recommendet firs change the fuse then write the software.
 
-the correct Fuses for this Setup are
+the correct Fuses for this Setup are:
+
 board_fuses.lfuse = 0x7F
+
 board_fuses.hfuse = 0xDA
+
 board_fuses.efuse = 0xFE
 
 
