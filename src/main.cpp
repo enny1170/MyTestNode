@@ -175,12 +175,13 @@ NodeManager. Just uncomment the settings you need and the sensors you want to ad
 #define NODEMANAGER_TIME OFF
 #define NODEMANAGER_RTC OFF
 #define NODEMANAGER_SD OFF
-#define NODEMANAGER_HOOKING OFF
+#define NODEMANAGER_HOOKING ON
 #define NODEMANAGER_OTA_CONFIGURATION OFF
 #define NODEMANAGER_SERIAL_INPUT OFF
 
 // import NodeManager library (a nodeManager object will be then made available)
 #include <MySensors_NodeManager.h>
+
 
 /***********************************
  * Add your sensors
@@ -224,8 +225,8 @@ SensorBattery battery;
 //#include <sensors/SensorDigitalOutput.h>
 //SensorDigitalOutput digitalOut(6);
 
-//#include <sensors/SensorRelay.h>
-//SensorRelay relay(6);
+#include <sensors/SensorRelay.h>
+SensorRelay relay(6);
 
 //#include <sensors/SensorLatchingRelay1Pin.h>
 //SensorLatchingRelay1Pin latching1pin(6);
@@ -245,8 +246,8 @@ SensorBattery battery;
 //#include <sensors/SensorHTU21D.h>
 //SensorHTU21D htu21;
 
-//#include <sensors/SensorInterrupt.h>
-//SensorInterrupt interrupt(3);
+#include <sensors/SensorInterrupt.h>
+SensorInterrupt interrupt(3);
 
 //#include <sensors/SensorDoor.h>
 //SensorDoor door(3);
@@ -378,6 +379,12 @@ SensorSI7021 si7021;
  * Main Sketch
  */
 
+void toggleRelay(Sensor* sensor)
+{
+  relay.toggleStatus();
+}
+
+
 // before
 void before() {
 	
@@ -406,6 +413,12 @@ void before() {
   //analog.children.get(1)->setMinThreshold(40);
   // power all the nodes through dedicated pins
   //nodeManager.setPowerManager(power);
+  interrupt.setInterruptHook(&toggleRelay);
+  interrupt.setInterruptMode(FALLING);
+  interrupt.setPinInitialValue(HIGH);
+  interrupt.children.get(1)->setType(V_STATUS);
+  interrupt.children.get(1)->setPresentation(S_BINARY);
+  nodeManager.setInterruptDebounce(1000);
 
   // call NodeManager before routine
   nodeManager.before();
