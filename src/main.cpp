@@ -225,8 +225,10 @@ SensorBattery battery;
 //#include <sensors/SensorDigitalOutput.h>
 //SensorDigitalOutput digitalOut(6);
 
+#ifdef ENABLE_BUTTON
 #include <sensors/SensorRelay.h>
 SensorRelay relay(6);
+#endif
 
 //#include <sensors/SensorLatchingRelay1Pin.h>
 //SensorLatchingRelay1Pin latching1pin(6);
@@ -246,8 +248,10 @@ SensorRelay relay(6);
 //#include <sensors/SensorHTU21D.h>
 //SensorHTU21D htu21;
 
+#ifdef ENABLE_BUTTON
 #include <sensors/SensorInterrupt.h>
 SensorInterrupt interrupt(3);
+#endif
 
 //#include <sensors/SensorDoor.h>
 //SensorDoor door(3);
@@ -378,12 +382,14 @@ SensorSI7021 si7021;
 /***********************************
  * Main Sketch
  */
-
+#ifdef ENABLE_BUTTON
 void toggleRelay(Sensor* sensor)
 {
+  Serial.print("Toggle Relais\n");
   relay.toggleStatus();
+  Serial.print("After Toggle Status\n");
 }
-
+#endif
 
 // before
 void before() {
@@ -413,13 +419,14 @@ void before() {
   //analog.children.get(1)->setMinThreshold(40);
   // power all the nodes through dedicated pins
   //nodeManager.setPowerManager(power);
+  #ifdef ENABLE_BUTTON
   interrupt.setInterruptHook(&toggleRelay);
   interrupt.setInterruptMode(FALLING);
   interrupt.setPinInitialValue(HIGH);
-  interrupt.children.get(1)->setType(V_STATUS);
-  interrupt.children.get(1)->setPresentation(S_BINARY);
+  //interrupt.children.get(1)->setType(V_STATUS);
+  //interrupt.children.get(1)->setPresentation(S_BINARY);
   nodeManager.setInterruptDebounce(1000);
-
+  #endif
   // call NodeManager before routine
   nodeManager.before();
 }
